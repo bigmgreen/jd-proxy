@@ -13,8 +13,9 @@ router.get('/', async(ctx) => {
     ctx.body = puppeteer.getMain()
 })
 
-router.get('/search', async(ctx) => {
-    ctx.body = puppeteer.getSearch()
+router.get('/search', async(ctx, next) => {
+    ctx.body = await puppeteer.getSearch(ctx.query.kw)
+    next()
 })
 
 app.listen(port)

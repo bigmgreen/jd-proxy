@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "supervisor ./src/server/app.js"
+    "serve": "supervisor ./src/app.js"
   },
   "author": "",
   "license": "ISC",
