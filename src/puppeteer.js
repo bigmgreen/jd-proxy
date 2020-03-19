@@ -19,6 +19,11 @@ const Events = {
     }
 }
 
+// 搜索历史 TODO: 存库
+const History = {}
+
+let isRunning = false;
+
 const Puppeteer = {
     browser: null,
 
@@ -41,9 +46,11 @@ const Puppeteer = {
 
                 console.log(res)
 
-                Events.emit('search', res)
+                Events.emit('search', res.replace(/^jQuery\d*\(/, '').replace(/\)$/, ''))
             }
         })
+
+        isRunning = true
 
         console.log('-----------------opened-----------------');
     },
@@ -65,11 +72,20 @@ const Puppeteer = {
     },
 
     async getSearch(kw) {
-        this._search(kw)
+        if (!isRunning) {
+            return Promise.resolve('服务未启动，请稍后...')
+        }
 
+        if (History[kw]) {
+            return Promise.resolve(History[kw])
+        }
+
+        this._search(kw)
         return new Promise((resolve) => {
             Events.on('search', (data) => {
-                resolve(data);
+                History[kw] = data
+
+                resolve(data)
             })
         })
     },

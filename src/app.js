@@ -14,6 +14,7 @@ router.get('/', async(ctx) => {
 })
 
 router.get('/search', async(ctx, next) => {
+    ctx.set("Content-Type", "application/json")
     ctx.body = await puppeteer.getSearch(ctx.query.kw)
     next()
 })
