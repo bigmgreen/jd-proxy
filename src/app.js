@@ -19,6 +19,12 @@ router.get('/search', async(ctx, next) => {
     next()
 })
 
+router.get('/searchlist', async(ctx, next) => {
+    ctx.set("Content-Type", "application/json")
+    ctx.body = await puppeteer.getSearchList(ctx.query.kw)
+    next()
+})
+
 app.listen(port)
 
 console.log(`server running on: 127.0.0.1:${port}`);

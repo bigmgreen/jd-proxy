@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "supervisor ./src/app.js"
+    "serve": "supervisor ./src/app.js",
+    "dev": "node --inspect ./src/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +13,8 @@
     "koa-router": "^8.0.8",
     "koa2": "^2.0.0-alpha.7",
     "puppeteer-core": "^2.1.1"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.3"
   }
 }
