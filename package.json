@@ -1,20 +1,19 @@
 {
-  "name": "jd-proxy-server",
+  "name": "jd-proxy",
   "version": "1.0.0",
-  "description": "",
+  "description": "- 启动命令",
   "main": "index.js",
   "scripts": {
-    "serve": "supervisor ./src/app.js",
-    "dev": "node --inspect ./src/app.js"
+    "serve": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bigmgreen/jd-proxy.git"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "koa-router": "^8.0.8",
-    "koa2": "^2.0.0-alpha.7",
-    "puppeteer-core": "^2.1.1"
+  "bugs": {
+    "url": "https://github.com/bigmgreen/jd-proxy/issues"
   },
-  "devDependencies": {
-    "cheerio": "^1.0.0-rc.3"
-  }
+  "homepage": "https://github.com/bigmgreen/jd-proxy#readme"
 }

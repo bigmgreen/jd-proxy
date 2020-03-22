@@ -33,8 +33,8 @@ const Puppeteer = {
     async create() {
         this.browser = await puppeteer.launch({
             executablePath: path.resolve(__dirname, '../chrome-win/chrome.exe'),
-            // headless: true,
-            headless: false
+            headless: true,
+            // headless: false
         });
 
         this.page = await this.browser.newPage()

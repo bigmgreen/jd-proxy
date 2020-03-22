@@ -1,3 +1,11 @@
-# jd商品信息加工
+# packages
 
-- es-checker NodeJs 检查对ES6 支持程度
+## server 服务端
+
+## client 客户端
+
+- 启动命令
+
+```bash
+npm run serve
+```

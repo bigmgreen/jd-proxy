@@ -1,0 +1,21 @@
+{
+  "name": "jd-proxy-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "supervisor ./src/app.js",
+    "dev": "node --inspect ./src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa-router": "^8.0.8",
+    "koa2": "^2.0.0-alpha.7",
+    "koa2-cors": "^2.0.6",
+    "puppeteer-core": "^2.1.1"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.3"
+  }
+}
