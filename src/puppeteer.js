@@ -61,18 +61,19 @@ const Puppeteer = {
 
                 let _shopname = ''
                 
+                const htmlJson = []
 
-                const htmlJson = $('#J_goodsList').find('.gl-item').map((i, el) => {
+                $('#J_goodsList').find('.gl-item').map((i, el) => {
 
                     const node = $(el)
 
                     const imgurl = node.find('[source-data-lazy-img]').attr('source-data-lazy-img')
                     const price = node.find('.p-price strong i').first().text()
-                    const title = node.find('.p-name em').first().text()
-                    const shopname = node.find('.curr-shop.hd-shopname').first().text() || _shopname
+                    const title = node.find('.p-name em').first().html()
+                    const shopname = node.find('.J_im_icon a').first().text() || _shopname
                     _shopname =  shopname
 
-                    return { imgurl, price, title, shopname }
+                    htmlJson.push({ imgurl, price, title, shopname })
 
                 })
 
@@ -100,17 +101,14 @@ const Puppeteer = {
     },
 
     async _doSearch(kw = '') {
-        // const pageHandle = await this.page.evaluateHandle(() => this.page);
-
-        // await this.page.$eval('#key', async (el, kw, pageHandle) => {
-        //     if (el.value === kw) {
-        //         await pageHandle.keyboard.press('Enter')
-        //     } else {
-
-        //     }
-        // }, kw, pageHandle)
-
-        // TODO: 执行搜索
+        if (History[kw]) {
+            // 关键字直接搜索
+            await this.page.focus('#key')
+            await this.page.keyboard.press('Enter')
+        } else {
+            // 联想词点击
+            await this.page.click(`#shelper li[title="${kw}"]`)
+        }
     },
 
     async getSearchList(kw) {
@@ -122,15 +120,15 @@ const Puppeteer = {
             return Promise.resolve('非法输入...')
         }
 
-        if (History[kw] && History[kw].list) {
-            return Promise.resolve(History[kw].list)
-        }
+        // if (History[kw] && History[kw].list) {
+        //     return Promise.resolve(History[kw].list)
+        // }
 
         this._doSearch(kw)
         return new Promise((resolve) => {
             Events.on('searchlist', (data) => {
 
-                History[kw].list = data
+                History[kw] = { kw, list: data }
 
                 resolve(data)
             })
@@ -146,14 +144,14 @@ const Puppeteer = {
             return Promise.resolve('非法输入...')
         }
 
-        if (History[kw] && History[kw].kw) {
-            return Promise.resolve(History[kw].kw)
-        }
+        // if (History[kw] && History[kw].kw) {
+        //     return Promise.resolve(History[kw].kw)
+        // }
 
         this._search(kw)
         return new Promise((resolve) => {
             Events.on('search', (data) => {
-                History[kw] = { [kw]: data }
+                History[kw] = { kw: data }
 
                 resolve(data)
             })
